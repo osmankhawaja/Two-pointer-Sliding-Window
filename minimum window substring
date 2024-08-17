@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/minimum-window-substring/
+
+string ok(string s, string t)
+{
+     int x=-1;
+     map<int, int>mt, ms;
+     for(int i=0; i<t.size(); i++)
+        mt[t[i]-'A']++;
+
+     int l=0, r=0, len=INT_MAX, cnt=0;
+     while(r < s.size())
+     {
+        ms[s[r]-'A']++;
+        
+        if (mt.count(s[r]-'A') && ms[s[r]-'A'] == mt[s[r]-'A'])
+                cnt++;
+
+       while (l <= r && cnt == mt.size())
+       {
+                if (r - l + 1 < len) {
+                    len = r - l + 1;
+                    x = l;
+                }
+
+                ms[s[l]-'A']--;
+                if((mt.count(s[l]-'A') && ms[s[l]-'A'] < mt[s[l]-'A']))
+                   cnt--;
+
+                l++;
+       }
+        r++;
+     }
+      return x == -1 ? "" : s.substr(x, len);
+}
+
+    string minWindow(string s, string t) {
+        return ok(s, t);
+    }
