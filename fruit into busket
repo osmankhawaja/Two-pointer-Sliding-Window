@@ -1,0 +1,21 @@
+//https://www.geeksforgeeks.org/problems/fruit-into-baskets-1663137462/1
+
+int totalFruits(vector<int> &arr) {
+         int l=0, r=0, ans=0;
+    map<int, int>m;
+    while(r < arr.size())
+    {
+        m[arr[r]]++;
+        while(m.size() == 3)
+        {
+            m[arr[l]]--;
+            if(m[arr[l]] == 0)
+             m.erase(arr[l]);
+
+            l++;
+        }
+        ans=max(ans, r-l+1);
+        r++;
+    }
+    return ans;
+    }
